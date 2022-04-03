@@ -1,0 +1,11 @@
+BIN =
+
+CFLAGS =
+CXXFLAGS =
+
+CPP_SRC = 
+C_SRC = 
+
+INCLUDES = 
+
+include common_build.mk
