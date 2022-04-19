@@ -8,4 +8,4 @@ C_SRC =
 
 INCLUDES = 
 
-include common_build.mk
+universal_build.mk

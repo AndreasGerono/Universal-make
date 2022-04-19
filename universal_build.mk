@@ -24,12 +24,13 @@ DEPDIR := $(OBJDIR)/.deps
 
 OBJECTS := $(C_SRC:%.c=$(OBJDIR)/%.o) $(CPP_SRC:%.cpp=$(OBJDIR)/%.o)
 DEPFILES := $(CPP_SRC:%.cpp=$(DEPDIR)/%.d) $(C_SRC:%.c=$(DEPDIR)/%.d)
+INC_PAT = $(addprefix -I, $(INCLUDES))
 
 # GCC will not create this directiories automaticly
 $(shell mkdir -p $(dir $(DEPFILES)) >/dev/null)
 $(shell mkdir -p $(dir $(OBJECTS)) >/dev/null)
 
-CXXFLAGS += $(INCLUDES)
+CXXFLAGS += $(INC_PAT)
 
 COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CPPFLAGS) -c
 
@@ -48,10 +49,9 @@ $(OBJDIR)/%.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
 .PHONY: all
 all: $(library) $(BIN)
 
-$(BIN): $(ALL_LIB) $(OBJECTS)
+$(BIN): $(OBJECTS)
 	@echo "Linking to executable: $@"
 	@$(CXX) $(OBJECTS) $(LDPATH) $(LDFLAGS) -o $@
-
 
 .PHONY: clean
 clean: 
